@@ -5,7 +5,6 @@ import com.example.myfilms.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-//para koin
 class App: Application () {
     override fun onCreate() {
         super.onCreate()
