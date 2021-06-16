@@ -4,6 +4,7 @@ import android.os.SystemClock.sleep
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.myfilms.model.AppState
 
 class MainViewModel (private val liveDataToObserve : MutableLiveData<Any> =
         MutableLiveData()) :
@@ -16,10 +17,15 @@ class MainViewModel (private val liveDataToObserve : MutableLiveData<Any> =
             }
 // //liveData - оберточный класс над данными. MutableLiveData можно изменять, на LiveData можно только подписаться
 
+    fun getLiveData() = liveDataToObserve
+    fun getMovies() = getDataFromLocalSource()
+
     private fun getDataFromLocalSource() {
+        liveDataToObserve.value = AppState.Loading //liveData хранит состояние приложения
         Thread {
             sleep(1000)
-            liveDataToObserve.postValue(Any()) //postValue - обновление данных из рабочего потока, setValue из основного
+            liveDataToObserve.postValue(AppState.Success(Any())) //об изменениях сразу узнает фрагмент, он
+            //подписан на liveData
         }.start()
     }
 
