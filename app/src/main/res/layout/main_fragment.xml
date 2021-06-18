@@ -14,4 +14,11 @@
         tools:itemCount="5"
         tools:listitem="@layout/fragment_movie_item" />
 
+    <ProgressBar
+    android:id="@+id/wait_for_it"
+    style="?android:attr/progressBarStyleLarge"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center" />
+
 </FrameLayout>

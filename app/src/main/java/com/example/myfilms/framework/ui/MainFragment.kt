@@ -8,8 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myfilms.R
 import com.example.myfilms.databinding.MainFragmentBinding
+import com.example.myfilms.model.AppState
+import com.google.android.material.snackbar.Snackbar
 
 
 class MainFragment : Fragment() {
@@ -26,13 +30,22 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-
-        val observer = Observer <Any> {renderData (it)} //выполняет renderData сразу, как только LiveData обновляет данные
-        viewModel.getData().observe(viewLifecycleOwner, observer) ////viewLifecycleOwner - универсальня ссылка на активити или фрагмент
+       // lifecycle.addObserver(viewModel)
+        val observer = Observer <AppState> {renderData (it)} //выполняет renderData сразу, как только LiveData обновляет данные
+        viewModel.getLiveData().observe(viewLifecycleOwner, observer) ////viewLifecycleOwner - универсальня ссылка на активити или фрагмент
+        viewModel.getMovies()
     }
 
-    private fun renderData(data: Any?) {
+    private fun renderData(appState : AppState) = with (binding) {
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        //сюда адаптер TODO
         Toast.makeText(context, "data", Toast.LENGTH_LONG).show()
+
+
+    }
+
+    private fun setData(moviesData: AppState) {
+
     }
 
     companion object {

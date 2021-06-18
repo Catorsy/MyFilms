@@ -1,11 +1,11 @@
 package com.example.myfilms.model
 
 data class Movies (
-        val name: String,
-        val overview: String?,
-        val original_language: String,
-        val release_date: String,
-        val vote_average: Number
+        val name: String = "Области тьмы",
+        val overview: String? = "История о человеке, которому удаётся максимально раскрыть возможности своего мозга.",
+        val original_language: String = "Английский",
+        val release_date: String = "2015",
+        val vote_average: Number = 8
         )
 
 fun getDefaultMovie() = Movies("Области тьмы",

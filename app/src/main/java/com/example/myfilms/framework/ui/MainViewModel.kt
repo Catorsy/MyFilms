@@ -6,11 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myfilms.model.AppState
 
-class MainViewModel (private val liveDataToObserve : MutableLiveData<Any> =
+class MainViewModel (private val liveDataToObserve : MutableLiveData<AppState> =
         MutableLiveData()) :
         ViewModel() {
 
-            fun getData() : LiveData<Any> {
+            fun getData() : LiveData<AppState> {
                 getDataFromLocalSource()
                 return liveDataToObserve
                         //возвращает LiveData всем, кто хочет подписаться на изменения данных
