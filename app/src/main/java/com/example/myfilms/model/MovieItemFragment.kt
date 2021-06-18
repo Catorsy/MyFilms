@@ -44,7 +44,7 @@ class MovieItemFragment : Fragment() {
     }
 
     companion object {
-        const val ARG_MOVIE = "ARG_FILM"
+        const val ARG_MOVIE = "ARG_MOVIE"
 
         @JvmStatic
         fun newInstance(movieData: Movies?) =
