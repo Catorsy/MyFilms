@@ -63,9 +63,17 @@ class MainFragment : Fragment() {
 
     }
 
+            //"образец"... данные
     private fun setData(moviesData: Movies) {
-//        binding.myFavorTitle.text = moviesData.name
-//        binding.myFavorRange.text = moviesData.vote_average.toString()
+        binding.myFavorTitle.text = moviesData.name
+        binding.myFavorRange.text = moviesData.vote_average.toString()
+                binding.testButton.setOnClickListener {
+                    activity?.supportFragmentManager?.beginTransaction()
+                        ?.add(R.id.container, MovieItemFragment.newInstance(moviesData))?.addToBackStack(null)
+                        ?.commit()
+                    Snackbar.make(binding.recyclerView, "Переход во фрагмент", Snackbar.LENGTH_LONG).show()
+                }
+
     }
 
     companion object {

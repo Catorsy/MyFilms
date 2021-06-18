@@ -1,12 +1,14 @@
 package com.example.myfilms.model
 
+import java.io.Serializable
+
 data class Movies (
         val name: String = "Области тьмы",
         val overview: String? = "История о человеке, которому удаётся максимально раскрыть возможности своего мозга.",
         val original_language: String = "Английский",
         val release_date: String = "2015",
         val vote_average: Number = 8
-        )
+        ) :Serializable
 
 //пусть будет, вдруг пригодится
 fun getDefaultMovie() = Movies("Области тьмы",
