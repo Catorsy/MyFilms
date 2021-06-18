@@ -11,15 +11,19 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myfilms.R
+import com.example.myfilms.databinding.FragmentMovieItemBinding
 import com.example.myfilms.databinding.MainFragmentBinding
 import com.example.myfilms.model.AppState
+import com.example.myfilms.model.MovieItemFragment
+import com.example.myfilms.model.Movies
 import com.google.android.material.snackbar.Snackbar
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainFragment : Fragment() {
 
     private lateinit var binding: MainFragmentBinding
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -29,11 +33,11 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-       // lifecycle.addObserver(viewModel)
+       // viewModel = ViewModelProvider(this).get(MainViewModel::class.java) //не через koin
+        lifecycle.addObserver(viewModel)
         val observer = Observer <AppState> {renderData (it)} //выполняет renderData сразу, как только LiveData обновляет данные
         viewModel.getLiveData().observe(viewLifecycleOwner, observer) ////viewLifecycleOwner - универсальня ссылка на активити или фрагмент
-        viewModel.getMovies()
+        viewModel.getMoviesFromLocalSource()
     }
 
     private fun renderData(appState : AppState) = with (binding) {
@@ -43,6 +47,7 @@ class MainFragment : Fragment() {
             is AppState.Success -> {
                 val moviesData = appState.moviesData
                 waitForIt.visibility = View.GONE
+                setData(moviesData)
                 Snackbar.make(recyclerView, "Success", Snackbar.LENGTH_LONG).show()
             }
             is AppState.Loading -> {
@@ -58,11 +63,13 @@ class MainFragment : Fragment() {
 
     }
 
-    private fun setData(moviesData: AppState) {
-
+    private fun setData(moviesData: Movies) {
+//        binding.myFavorTitle.text = moviesData.name
+//        binding.myFavorRange.text = moviesData.vote_average.toString()
     }
 
     companion object {
         fun newInstance() = MainFragment()
     }
 }
+
