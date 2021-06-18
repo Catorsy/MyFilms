@@ -39,7 +39,21 @@ class MainFragment : Fragment() {
     private fun renderData(appState : AppState) = with (binding) {
         recyclerView.layoutManager = LinearLayoutManager(context)
         //сюда адаптер TODO
-        Toast.makeText(context, "data", Toast.LENGTH_LONG).show()
+        when (appState) {
+            is AppState.Success -> {
+                val moviesData = appState.moviesData
+                waitForIt.visibility = View.GONE
+                Snackbar.make(recyclerView, "Success", Snackbar.LENGTH_LONG).show()
+            }
+            is AppState.Loading -> {
+                waitForIt.visibility = View.VISIBLE
+            }
+            is AppState.Error -> {
+                waitForIt.visibility = View.GONE
+                Snackbar.make(recyclerView, "No Success", Snackbar.LENGTH_LONG).show()
+            }
+        }
+        Toast.makeText(context, "Привет!", Toast.LENGTH_LONG).show()
 
 
     }
