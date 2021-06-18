@@ -1,13 +1,12 @@
-package com.example.myfilms.framework.ui
+package com.example.myfilms.viewModel
 
 import android.os.SystemClock.sleep
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.myfilms.model.AppState
+import com.example.myfilms.viewModel.AppState
 import com.example.myfilms.model.repository.Repository
-import com.example.myfilms.model.repository.RepositoryImpl
 
 //class MainViewModel (private val liveDataToObserve : MutableLiveData<AppState> =
 //                             MutableLiveData(), private  val repositoryImpl: RepositoryImpl) :

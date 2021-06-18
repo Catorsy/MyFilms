@@ -1,6 +1,5 @@
-package com.example.myfilms.framework.ui
+package com.example.myfilms.view
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,12 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myfilms.R
-import com.example.myfilms.databinding.FragmentMovieItemBinding
 import com.example.myfilms.databinding.MainFragmentBinding
-import com.example.myfilms.model.AppState
+import com.example.myfilms.viewModel.MainViewModel
+import com.example.myfilms.viewModel.AppState
 import com.example.myfilms.model.MovieItemFragment
 import com.example.myfilms.model.Movies
 import com.google.android.material.snackbar.Snackbar

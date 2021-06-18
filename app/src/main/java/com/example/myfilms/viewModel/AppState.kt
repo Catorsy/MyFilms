@@ -1,4 +1,6 @@
-package com.example.myfilms.model
+package com.example.myfilms.viewModel
+
+import com.example.myfilms.model.Movies
 
 sealed class AppState {
 
