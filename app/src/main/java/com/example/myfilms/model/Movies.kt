@@ -7,7 +7,8 @@ data class Movies (
         val overview: String? = "История о человеке, которому удаётся максимально раскрыть возможности своего мозга.",
         val original_language: String = "Английский",
         val release_date: String = "2015",
-        val vote_average: Number = 8
+        val vote_average: Number = 8,
+        val imdb_id : String? = "dark" //это что? Вот сюда записывют постер?
         ) :Serializable
 
 //пусть будет, вдруг пригодится
