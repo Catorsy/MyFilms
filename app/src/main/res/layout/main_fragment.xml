@@ -34,13 +34,13 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/testButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/black"
-        android:text="Click me!" >
-    </Button>
+<!--    <Button-->
+<!--        android:id="@+id/testButton"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/black"-->
+<!--        android:text="Click me!" >-->
+<!--    </Button>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
