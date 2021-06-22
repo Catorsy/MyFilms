@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.example.myfilms.R
 import com.example.myfilms.databinding.FragmentMovieItemBinding
 
-class MovieItemFragment : Fragment() {
+class  MovieItemFragment : Fragment() {
 
     private lateinit var binding: FragmentMovieItemBinding
     private var movieData: Movies? = null

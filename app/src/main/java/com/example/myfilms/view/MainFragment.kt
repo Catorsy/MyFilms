@@ -21,9 +21,22 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
 
+    val ARG_MOVIE = "ARG_MOVIE"
     private lateinit var binding: MainFragmentBinding
     private val viewModel: MainViewModel by viewModel()
-                private val adapter = MainFragmentAdapter() //не было
+    private val onListItemClickListener = object : OnItemViewClickListener {
+        override fun onItemViewClick(movies: Movies) {
+            activity?.supportFragmentManager?.let {
+                val bundle = Bundle()
+                bundle.putSerializable(ARG_MOVIE, movies)
+                it.beginTransaction()
+                        .add(R.id.container, MovieItemFragment.newInstance(movies))
+                        .addToBackStack("")
+                        .commitAllowingStateLoss()
+            }
+        }
+    }
+    private val adapter = MainFragmentAdapter(onListItemClickListener)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -63,8 +76,11 @@ class MainFragment : Fragment() {
             }
         }
         Toast.makeText(context, "Привет!", Toast.LENGTH_LONG).show()
+    }
 
-
+            //интерфейс для передачи данных между адаптером списка и фрагментом
+    interface OnItemViewClickListener {
+        fun onItemViewClick(movies: Movies)
     }
 
             //старый метод не для списка
@@ -79,6 +95,12 @@ class MainFragment : Fragment() {
 //                }
 //
 //    }
+
+    //следит за утечками, удаляет слушатель из адаптера
+    override fun onDestroy() {
+        adapter.removeListener()
+                super.onDestroy()
+            }
 
     companion object {
         fun newInstance() = MainFragment()

@@ -9,10 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myfilms.R
 import com.example.myfilms.databinding.FragmentMovieItemBinding
 import com.example.myfilms.model.Movies
+import com.example.myfilms.view.MainFragment
 
 val itemCount = 5
 
-class MainFragmentAdapter : RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
+class MainFragmentAdapter (private var onItemViewClickListener: MainFragment.OnItemViewClickListener?)
+    : RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
 
     private var moviesData: List<Movies> = listOf()
     private lateinit var binding: FragmentMovieItemBinding
@@ -30,7 +32,8 @@ class MainFragmentAdapter : RecyclerView.Adapter<MainFragmentAdapter.MainViewHol
             score.text = movie.vote_average.toString()
             year.text = movie.release_date
             root.setOnClickListener {
-                Toast.makeText(itemView.context, movie.name, Toast.LENGTH_LONG).show()
+                //Toast.makeText(itemView.context, movie.name, Toast.LENGTH_LONG).show()
+                onItemViewClickListener?.onItemViewClick(movie)
             }
         }
     }
@@ -46,5 +49,9 @@ class MainFragmentAdapter : RecyclerView.Adapter<MainFragmentAdapter.MainViewHol
 
     override fun getItemCount(): Int {
         return moviesData.size
+    }
+
+    fun removeListener() {
+        onItemViewClickListener = null
     }
 }
