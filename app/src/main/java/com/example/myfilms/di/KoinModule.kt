@@ -13,6 +13,4 @@ val appModule = module {
     //ViewModels
     viewModel { MainViewModel (get()) }
     //гет возьмет эту часть: private val repository: Repository
-
-
 }

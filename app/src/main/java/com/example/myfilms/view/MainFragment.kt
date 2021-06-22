@@ -18,7 +18,6 @@ import com.example.myfilms.model.Movies
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class MainFragment : Fragment() {
 
     val ARG_MOVIE = "ARG_MOVIE"
@@ -46,23 +45,21 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       // viewModel = ViewModelProvider(this).get(MainViewModel::class.java) //не через koin
-                //lifecycle.addObserver(viewModel)
+        // viewModel = ViewModelProvider(this).get(MainViewModel::class.java) //не через koin
+        //lifecycle.addObserver(viewModel)
+        binding.recyclerView.adapter = adapter
 
-                    binding.recyclerView.adapter = adapter
-
-        val observer = Observer <AppState> {renderData (it)} //выполняет renderData сразу, как только LiveData обновляет данные
+        val observer = Observer<AppState> { renderData(it) } //выполняет renderData сразу, как только LiveData обновляет данные
         viewModel.getLiveData().observe(viewLifecycleOwner, observer) ////viewLifecycleOwner - универсальня ссылка на активити или фрагмент
         viewModel.getMoviesFromLocalSource()
     }
 
-    private fun renderData(appState : AppState) = with (binding) {
+    private fun renderData(appState: AppState) = with(binding) {
         recyclerView.layoutManager = LinearLayoutManager(context)
-        //сюда адаптер TODO
         when (appState) {
             is AppState.Success -> {
                 //val moviesData = appState.moviesData //для не-списка
-               // setData(moviesData)
+                // setData(moviesData)
                 waitForIt.visibility = View.GONE
                 adapter.setListOfMovies(appState.moviesData)
                 Snackbar.make(recyclerView, getString(R.string.sucess), Snackbar.LENGTH_LONG).show()
@@ -75,15 +72,14 @@ class MainFragment : Fragment() {
                 Snackbar.make(recyclerView, "No Success", Snackbar.LENGTH_LONG).show()
             }
         }
-        Toast.makeText(context, "Привет!", Toast.LENGTH_LONG).show()
     }
 
-            //интерфейс для передачи данных между адаптером списка и фрагментом
+    //интерфейс для передачи данных между адаптером списка и фрагментом
     interface OnItemViewClickListener {
         fun onItemViewClick(movies: Movies)
     }
 
-            //старый метод не для списка
+    //старый метод не для списка
 //    private fun setData(moviesData: Movies) {
 //        binding.myFavorTitle.text = moviesData.name
 //        binding.myFavorRange.text = moviesData.vote_average.toString()
@@ -99,8 +95,8 @@ class MainFragment : Fragment() {
     //следит за утечками, удаляет слушатель из адаптера
     override fun onDestroy() {
         adapter.removeListener()
-                super.onDestroy()
-            }
+        super.onDestroy()
+    }
 
     companion object {
         fun newInstance() = MainFragment()

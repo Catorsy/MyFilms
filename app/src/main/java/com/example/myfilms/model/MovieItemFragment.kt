@@ -6,10 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.myfilms.R
 import com.example.myfilms.databinding.FragmentMovieItemBinding
 
-class  MovieItemFragment : Fragment() {
+class MovieItemFragment : Fragment() {
 
     private lateinit var binding: FragmentMovieItemBinding
     private var movieData: Movies? = null
@@ -22,8 +21,8 @@ class  MovieItemFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         binding = FragmentMovieItemBinding.inflate(inflater, container, false)
         return binding.root
@@ -40,7 +39,7 @@ class  MovieItemFragment : Fragment() {
         binding.language.text = movieData?.original_language
         binding.year.text = movieData?.release_date
         binding.score.text = movieData?.vote_average.toString()
-        binding.movieImage.setImageResource(R.drawable.dark)
+        movieData?.numberPicture?.let { binding.movieImage.setImageResource(it) }
     }
 
     companion object {
@@ -48,10 +47,10 @@ class  MovieItemFragment : Fragment() {
 
         @JvmStatic
         fun newInstance(movieData: Movies?) =
-            MovieItemFragment().apply {
-                arguments = Bundle().apply {
-                    putSerializable(ARG_MOVIE, movieData)
+                MovieItemFragment().apply {
+                    arguments = Bundle().apply {
+                        putSerializable(ARG_MOVIE, movieData)
+                    }
                 }
-            }
     }
 }

@@ -11,28 +11,26 @@ import com.example.myfilms.databinding.FragmentMovieItemBinding
 import com.example.myfilms.model.Movies
 import com.example.myfilms.view.MainFragment
 
-val itemCount = 5
-
-class MainFragmentAdapter (private var onItemViewClickListener: MainFragment.OnItemViewClickListener?)
+class MainFragmentAdapter(private var onItemViewClickListener: MainFragment.OnItemViewClickListener?)
     : RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
 
     private var moviesData: List<Movies> = listOf()
     private lateinit var binding: FragmentMovieItemBinding
 
-    fun setListOfMovies(data: List <Movies>) {
+    fun setListOfMovies(data: List<Movies>) {
         moviesData = data
         notifyDataSetChanged()
     }
 
-    inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder (itemView) {
-        fun bind(movie: Movies) = with (binding){
+    inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(movie: Movies) = with(binding) {
             itemName.text = movie.name
             description.text = movie.overview
             language.text = movie.original_language
             score.text = movie.vote_average.toString()
             year.text = movie.release_date
+            movie.numberPicture?.let { movieImage.setImageResource(it) }
             root.setOnClickListener {
-                //Toast.makeText(itemView.context, movie.name, Toast.LENGTH_LONG).show()
                 onItemViewClickListener?.onItemViewClick(movie)
             }
         }
