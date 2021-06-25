@@ -28,7 +28,7 @@ class MainFragment : Fragment() {
                 val bundle = Bundle()
                 bundle.putSerializable(ARG_MOVIE, movies)
                 it.beginTransaction()
-                        .add(R.id.container, MovieItemFragment.newInstance(movies))
+                        .replace(R.id.container, MovieItemFragment.newInstance(movies))
                         .addToBackStack("")
                         .commitAllowingStateLoss()
             }
