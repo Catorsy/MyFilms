@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myfilms.R
@@ -45,21 +44,20 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // viewModel = ViewModelProvider(this).get(MainViewModel::class.java) //не через koin
-        //lifecycle.addObserver(viewModel)
         binding.recyclerView.adapter = adapter
 
         val observer = Observer<AppState> { renderData(it) } //выполняет renderData сразу, как только LiveData обновляет данные
-        viewModel.getLiveData().observe(viewLifecycleOwner, observer) ////viewLifecycleOwner - универсальня ссылка на активити или фрагмент
-        viewModel.getMoviesFromLocalSource()
+        with (viewModel) {
+            getLiveData().observe(viewLifecycleOwner, observer) ////viewLifecycleOwner - универсальня ссылка на активити или фрагмент
+            getMoviesFromLocalSource()
+        }
+
     }
 
     private fun renderData(appState: AppState) = with(binding) {
         recyclerView.layoutManager = LinearLayoutManager(context)
         when (appState) {
             is AppState.Success -> {
-                //val moviesData = appState.moviesData //для не-списка
-                // setData(moviesData)
                 waitForIt.visibility = View.GONE
                 adapter.setListOfMovies(appState.moviesData)
                 Snackbar.make(recyclerView, getString(R.string.sucess), Snackbar.LENGTH_LONG).show()
@@ -69,7 +67,7 @@ class MainFragment : Fragment() {
             }
             is AppState.Error -> {
                 waitForIt.visibility = View.GONE
-                Snackbar.make(recyclerView, "No Success", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(recyclerView, getString(R.string.no_sucess), Snackbar.LENGTH_LONG).show()
             }
         }
     }
@@ -78,19 +76,6 @@ class MainFragment : Fragment() {
     interface OnItemViewClickListener {
         fun onItemViewClick(movies: Movies)
     }
-
-    //старый метод не для списка
-//    private fun setData(moviesData: Movies) {
-//        binding.myFavorTitle.text = moviesData.name
-//        binding.myFavorRange.text = moviesData.vote_average.toString()
-//                binding.testButton.setOnClickListener {
-//                    activity?.supportFragmentManager?.beginTransaction()
-//                        ?.add(R.id.container, MovieItemFragment.newInstance(moviesData))?.addToBackStack(null)
-//                        ?.commit()
-//                    Snackbar.make(binding.recyclerView, "Переход во фрагмент", Snackbar.LENGTH_LONG).show()
-//                }
-//
-//    }
 
     //следит за утечками, удаляет слушатель из адаптера
     override fun onDestroy() {
