@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="center"
-            android:text="Русский"
+            android:text="@string/russian"
             android:textColor="@color/text_yellow_color"
             android:textStyle="bold" />
 

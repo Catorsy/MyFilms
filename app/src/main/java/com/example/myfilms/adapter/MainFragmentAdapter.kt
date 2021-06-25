@@ -41,13 +41,12 @@ class MainFragmentAdapter(private var onItemViewClickListener: MainFragment.OnIt
         return MainViewHolder(binding.root)
     }
 
+
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         holder.bind(moviesData[position])
     }
 
-    override fun getItemCount(): Int {
-        return moviesData.size
-    }
+    override fun getItemCount() = moviesData.size
 
     fun removeListener() {
         onItemViewClickListener = null

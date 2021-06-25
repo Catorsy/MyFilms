@@ -1,6 +1,5 @@
 package com.example.myfilms.model
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -33,13 +32,13 @@ class MovieItemFragment : Fragment() {
         initView()
     }
 
-    private fun initView() {
-        binding.description.text = movieData?.overview
-        binding.itemName.text = movieData?.name
-        binding.language.text = movieData?.original_language
-        binding.year.text = movieData?.release_date
-        binding.score.text = movieData?.vote_average.toString()
-        movieData?.numberPicture?.let { binding.movieImage.setImageResource(it) }
+    private fun initView() = with (binding) {
+        description.text = movieData?.overview
+        itemName.text = movieData?.name
+        language.text = movieData?.original_language
+        year.text = movieData?.release_date
+        score.text = movieData?.vote_average.toString()
+        movieData?.numberPicture?.let { movieImage.setImageResource(it) }
     }
 
     companion object {
