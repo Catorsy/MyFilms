@@ -1,16 +1,26 @@
 package com.example.myfilms.model
 
+import android.graphics.Movie
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.myfilms.R
 import com.example.myfilms.databinding.FragmentMovieItemBinding
 import com.example.myfilms.model.rest_entities.MoviesDTO
+import com.example.myfilms.viewModel.AppState
+import com.example.myfilms.viewModel.MainViewModel
+import com.google.android.material.snackbar.Snackbar
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.example.myfilms.model.Movies as Movies
+
+const val ARG_MOVIE = "ARG_MOVIE"
 
 class MovieItemFragment : Fragment() {
 
     private lateinit var binding: FragmentMovieItemBinding
+    private val viewModel: MovieItemViewModel by viewModel()
     private var movieData: Movies? = null
     private lateinit var moviesBundle: Movies
 
@@ -29,10 +39,40 @@ class MovieItemFragment : Fragment() {
         return binding.root
     }
 
+    //а как быть с сериалайзабл?!
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView()
+        //initView()
+        val movies = arguments?.getParcelable<Movies>(ARG_MOVIE)
+        movies?.let{
+            with (binding) {
+                val moviesName = it.name
+                itemName.text = moviesName //сеттим что есть
+                viewModel.liveDataToObserve.observe(viewLifecycleOwner, {appState -> //подписываемся на обновления
+                    when (appState) {
+                        is AppState.Error -> {
+                            Snackbar.make(linearDetails, "Error!", Snackbar.LENGTH_LONG).show()
+                            waitForMe.visibility = View.GONE
+                        }
+                        AppState.Loading -> binding.waitForMe.visibility = View.VISIBLE
+                        is AppState.Success -> {
+                            waitForMe.visibility = View.GONE
+                            //itemName.text = appState.moviesData[0].name
+                            score.text = appState.moviesData[0].vote_average?.toString()
+                            year.text = appState.moviesData[0].release_date
+                            language.text = appState.moviesData[0].original_language
+                            description.text = appState.moviesData[0].overview
+                        }
+                    }
+                })
+                if (moviesName != null) {
+                    viewModel?.loadData(moviesName)
+                }
+            }
+        }
     }
+
+    //ДЗ ПОЧТИ доделана, не хватает проверить работоспособность.
 
     private fun initView() = with (binding) {
         description.text = movieData?.overview
@@ -44,18 +84,19 @@ class MovieItemFragment : Fragment() {
     }
 
     //отображаем полученные данные
-    private fun displayMovies(moviesDTO: MoviesDTO) {
-        with (binding) {
+    private fun displayMovies(moviesDTO: MoviesDTO) = with (binding){
             linearDetails.visibility = View.VISIBLE
             waitForMe.visibility = View.GONE
-            val movie = moviesBundle.
-                    //если Вы дошли до этой строчки и она всё ещё есть, это значит, что я не успела доделать дз, а срок поджимает.
-            //планирую сделать дз до среды включая среду, прошу посмотреть дз попозже.
-        }
+            val name = moviesBundle.name //будем запрашивать фильм по имени
+            itemName.text = name
+            score.text = moviesDTO.fact?.vote_average.toString()
+            year.text = moviesDTO.fact?.release_date
+            language.text = moviesDTO.fact?.original_language
+            description.text = moviesDTO.fact?.overview
+            movieImage.setImageResource(R.drawable.prestige) //TODO картинки!
     }
 
     companion object {
-        const val ARG_MOVIE = "ARG_MOVIE"
         private const val api_key = "697bdb3bdc1a9dfcf325c28b417a9ba6"
 
         @JvmStatic

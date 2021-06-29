@@ -1,5 +1,6 @@
 package com.example.myfilms.di
 
+import com.example.myfilms.model.MovieItemViewModel
 import com.example.myfilms.viewModel.MainViewModel
 import com.example.myfilms.model.repository.Repository
 import com.example.myfilms.model.repository.RepositoryImpl
@@ -13,4 +14,6 @@ val appModule = module {
     //ViewModels
     viewModel { MainViewModel (get()) }
     //гет возьмет эту часть: private val repository: Repository
+
+    viewModel {MovieItemViewModel(get())}
 }
