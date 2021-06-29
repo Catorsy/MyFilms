@@ -40,6 +40,8 @@ dependencies {
 
     implementation "io.insert-koin:koin-android-ext:3.0.2"
 
+    implementation 'com.google.code.gson:gson:2.8.5'
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.5.0'
     implementation 'com.google.android.material:material:1.1.0'

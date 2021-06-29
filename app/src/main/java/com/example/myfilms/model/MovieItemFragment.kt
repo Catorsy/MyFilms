@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.myfilms.databinding.FragmentMovieItemBinding
+import com.example.myfilms.model.rest_entities.MoviesDTO
 
 class MovieItemFragment : Fragment() {
 
     private lateinit var binding: FragmentMovieItemBinding
     private var movieData: Movies? = null
+    private lateinit var moviesBundle: Movies
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +43,20 @@ class MovieItemFragment : Fragment() {
         movieData?.numberPicture?.let { movieImage.setImageResource(it) }
     }
 
+    //отображаем полученные данные
+    private fun displayMovies(moviesDTO: MoviesDTO) {
+        with (binding) {
+            linearDetails.visibility = View.VISIBLE
+            waitForMe.visibility = View.GONE
+            val movie = moviesBundle.
+                    //если Вы дошли до этой строчки и она всё ещё есть, это значит, что я не успела доделать дз, а срок поджимает.
+            //планирую сделать дз до среды включая среду, прошу посмотреть дз попозже.
+        }
+    }
+
     companion object {
         const val ARG_MOVIE = "ARG_MOVIE"
+        private const val api_key = "697bdb3bdc1a9dfcf325c28b417a9ba6"
 
         @JvmStatic
         fun newInstance(movieData: Movies?) =
