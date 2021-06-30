@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearDetails"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black"
@@ -77,5 +78,12 @@
         android:text="Описание фильма, которое мы не внесем в ресурс, потому что это образец"
         android:textColor="@color/text_yellow_color"
         android:textStyle="italic" />
+
+    <ProgressBar
+        android:id="@+id/wait_for_me"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 
 </LinearLayout>

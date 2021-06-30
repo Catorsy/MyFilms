@@ -4,7 +4,7 @@ import com.example.myfilms.model.Movies
 
 interface Repository {
 
-    fun getMoviesFromServer(): Movies
+    fun getMoviesFromServer(name: String): Movies
     fun getMoviesFromLocalStorage(): List<Movies>
 
 }
