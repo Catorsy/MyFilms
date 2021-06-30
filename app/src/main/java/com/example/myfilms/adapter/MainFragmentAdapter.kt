@@ -24,7 +24,7 @@ class MainFragmentAdapter(private var onItemViewClickListener: MainFragment.OnIt
 
     inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(movie: Movies) = with(binding) {
-            itemName.text = movie.name
+            itemName.text = movie.title
             description.text = movie.overview
             language.text = movie.original_language
             score.text = movie.vote_average.toString()

@@ -3,6 +3,7 @@ package com.example.myfilms.model.rest_entities
 data class MoviesDTO(
         val id: Int?,
         val name: String?,
+        val title: String?,
         val imdb_id: String?,
         val overview: String?,
         val original_language: String?,

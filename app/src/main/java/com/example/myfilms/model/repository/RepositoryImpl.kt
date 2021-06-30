@@ -14,6 +14,7 @@ class RepositoryImpl : Repository {
         return Movies(
                 dto?.id,
                 dto?.name,
+                dto?.title,
                 dto?.overview,
                 dto?.original_language,
                 dto?.release_date,

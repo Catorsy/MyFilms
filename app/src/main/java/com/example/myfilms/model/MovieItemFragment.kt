@@ -47,7 +47,6 @@ class MovieItemFragment : Fragment() {
         movies?.let{
             with (binding) {
                 val moviesName = it.name
-                itemName.text = moviesName //сеттим что есть
                 viewModel.liveDataToObserve.observe(viewLifecycleOwner, {appState -> //подписываемся на обновления
                     when (appState) {
                         is AppState.Error -> {
@@ -57,7 +56,7 @@ class MovieItemFragment : Fragment() {
                         AppState.Loading -> binding.waitForMe.visibility = View.VISIBLE
                         is AppState.Success -> {
                             waitForMe.visibility = View.GONE
-                            //itemName.text = appState.moviesData[0].name
+                            itemName.text = appState.moviesData[0].title
                             score.text = appState.moviesData[0].vote_average?.toString()
                             year.text = appState.moviesData[0].release_date
                             language.text = appState.moviesData[0].original_language
@@ -76,7 +75,7 @@ class MovieItemFragment : Fragment() {
 
     private fun initView() = with (binding) {
         description.text = movieData?.overview
-        itemName.text = movieData?.name
+        itemName.text = movieData?.title
         language.text = movieData?.original_language
         year.text = movieData?.release_date
         score.text = movieData?.vote_average.toString()
