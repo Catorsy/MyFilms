@@ -89,10 +89,10 @@ class MovieItemFragment : Fragment() {
             waitForMe.visibility = View.GONE
             val name = moviesBundle.name //будем запрашивать фильм по имени
             itemName.text = name
-            score.text = moviesDTO.fact?.vote_average.toString()
-            year.text = moviesDTO.fact?.release_date
-            language.text = moviesDTO.fact?.original_language
-            description.text = moviesDTO.fact?.overview
+            score.text = moviesDTO?.vote_average.toString()
+            year.text = moviesDTO?.release_date
+            language.text = moviesDTO?.original_language
+            description.text = moviesDTO?.overview
             movieImage.setImageResource(R.drawable.prestige) //TODO картинки!
     }
 

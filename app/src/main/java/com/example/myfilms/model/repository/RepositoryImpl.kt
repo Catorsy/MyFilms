@@ -12,12 +12,12 @@ class RepositoryImpl : Repository {
     override fun getMoviesFromServer(name: String): Movies {
         val dto = MoviesLoader.loadMovie(name)
         return Movies(
-                dto?.fact?.id,
-                dto?.fact?.name,
-                dto?.fact?.overview,
-                dto?.fact?.original_language,
-                dto?.fact?.release_date,
-                dto?.fact?.vote_average as Double?,
+                dto?.id,
+                dto?.name,
+                dto?.overview,
+                dto?.original_language,
+                dto?.release_date,
+                dto?.vote_average,
         )
     }
 
