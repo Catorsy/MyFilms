@@ -52,7 +52,8 @@ object MoviesLoader {
                 } else {
                     getLines(bufferedReader)
                 }
-                return Gson().fromJson(lines, MoviesDTO::class.java) //передадим текст и класс, который хотим преобразовать
+                //передадим текст и класс, который хотим преобразовать
+                return Gson().fromJson(lines, MoviesDTO::class.java)
 
             } catch (e: Exception) {
                 Log.e("", "Fail connection", e)
