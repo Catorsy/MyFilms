@@ -43,7 +43,7 @@ class MovieItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //initView()
-        val movies = arguments?.getParcelable<Movies>(ARG_MOVIE)
+        val movies = arguments?.getParcelable<Movies>(ARG_MOVIE) //TODO а как сделать с сериалайзбл?
         movies?.let{
             with (binding) {
                 val moviesName = it.name
@@ -70,8 +70,6 @@ class MovieItemFragment : Fragment() {
             }
         }
     }
-
-    //ДЗ ПОЧТИ доделана, не хватает проверить работоспособность.
 
     private fun initView() = with (binding) {
         description.text = movieData?.overview
