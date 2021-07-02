@@ -17,6 +17,9 @@ import com.example.myfilms.model.Movies
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+//!!!!!
+//Я заглушка, подождите меня, пожалуйста :) Дз к процесс изготовления
+
 class MainFragment : Fragment() {
 
     val ARG_MOVIE = "ARG_MOVIE"
