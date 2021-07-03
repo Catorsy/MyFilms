@@ -1,10 +1,15 @@
 package com.example.myfilms.view
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myfilms.R
@@ -21,6 +26,23 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 //Я заглушка, подождите меня, пожалуйста :) Дз к процесс изготовления
 
 class MainFragment : Fragment() {
+
+    private val netReseiver : BroadcastReceiver = object  : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            Toast.makeText(context, "А теперь у нас перебои с чем-то еще.", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    //подпишемся на смену даты - что можем найти, то можем...
+    override fun onStart() {
+        super.onStart()
+        context?.registerReceiver(netReseiver, IntentFilter(Intent.ACTION_DATE_CHANGED))
+    }
+
+    override fun onStop() {
+        context?.unregisterReceiver(netReseiver)
+        super.onStop()
+    }
 
     val ARG_MOVIE = "ARG_MOVIE"
     private lateinit var binding: MainFragmentBinding
