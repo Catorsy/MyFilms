@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -35,10 +36,9 @@ class MainFragment : Fragment() {
         }
     }
 
-    //подпишемся на смену даты - что можем найти, то можем...
     override fun onStart() {
         super.onStart()
-        context?.registerReceiver(netReseiver, IntentFilter(Intent.ACTION_DATE_CHANGED))
+        context?.registerReceiver(netReseiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
     }
 
     override fun onStop() {
