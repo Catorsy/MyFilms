@@ -1,13 +1,20 @@
 package com.example.myfilms.model
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Movie
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.myfilms.R
 import com.example.myfilms.databinding.FragmentMovieItemBinding
+import com.example.myfilms.experiments.*
 import com.example.myfilms.model.rest_entities.MoviesDTO
 import com.example.myfilms.viewModel.AppState
 import com.example.myfilms.viewModel.MainViewModel
@@ -29,6 +36,7 @@ class MovieItemFragment : Fragment() {
         arguments?.let {
             movieData = it.getSerializable(ARG_MOVIE) as Movies
         }
+
     }
 
     override fun onCreateView(
@@ -43,6 +51,7 @@ class MovieItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //initView()
+
         val movies = arguments?.getParcelable<Movies>(ARG_MOVIE) //TODO а как сделать с сериалайзбл?
         movies?.let{
             with (binding) {
@@ -92,6 +101,7 @@ class MovieItemFragment : Fragment() {
             description.text = moviesDTO?.overview
             movieImage.setImageResource(R.drawable.prestige) //TODO картинки!
     }
+
 
     companion object {
         private const val api_key = "697bdb3bdc1a9dfcf325c28b417a9ba6"
