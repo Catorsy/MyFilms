@@ -9,11 +9,10 @@ import com.example.myfilms.model.getListOfMovies
 class RepositoryImpl : Repository {
 
     @RequiresApi(Build.VERSION_CODES.N)
-    override fun getMoviesFromServer(name: String): Movies {
-        val dto = MoviesLoader.loadMovie(name)
+    override fun getMoviesFromServer(id: Int): Movies {
+        val dto = MoviesLoader.loadMovie(id)
         return Movies(
                 dto?.id,
-                dto?.name,
                 dto?.title,
                 dto?.overview,
                 dto?.original_language,

@@ -1,23 +1,14 @@
 package com.example.myfilms.model
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import android.graphics.Movie
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.myfilms.R
 import com.example.myfilms.databinding.FragmentMovieItemBinding
-import com.example.myfilms.experiments.*
-import com.example.myfilms.model.rest_entities.MoviesDTO
+import com.example.myfilms.model.rest.rest_entities.MoviesDTO
 import com.example.myfilms.viewModel.AppState
-import com.example.myfilms.viewModel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.example.myfilms.model.Movies as Movies
@@ -55,7 +46,7 @@ class MovieItemFragment : Fragment() {
         val movies = arguments?.getParcelable<Movies>(ARG_MOVIE) //TODO а как сделать с сериалайзбл?
         movies?.let{
             with (binding) {
-                val moviesName = it.name
+                val moviesName = it.id
                 viewModel.liveDataToObserve.observe(viewLifecycleOwner, {appState -> //подписываемся на обновления
                     when (appState) {
                         is AppState.Error -> {
@@ -93,7 +84,7 @@ class MovieItemFragment : Fragment() {
     private fun displayMovies(moviesDTO: MoviesDTO) = with (binding){
             linearDetails.visibility = View.VISIBLE
             waitForMe.visibility = View.GONE
-            val name = moviesBundle.name //будем запрашивать фильм по имени
+            val name = moviesBundle.title //будем запрашивать фильм по имени
             itemName.text = name
             score.text = moviesDTO?.vote_average.toString()
             year.text = moviesDTO?.release_date

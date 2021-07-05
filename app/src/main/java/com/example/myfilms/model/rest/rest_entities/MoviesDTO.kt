@@ -1,10 +1,9 @@
-package com.example.myfilms.model.rest_entities
+package com.example.myfilms.model.rest.rest_entities
 
 import java.io.Serializable
 
 data class MoviesDTO(
         val id: Int?,
-        val name: String?,
         val title: String?,
         val imdb_id: String?,
         val overview: String?,

@@ -16,15 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myfilms.R
 import com.example.myfilms.adapter.MainFragmentAdapter
 import com.example.myfilms.databinding.MainFragmentBinding
-import com.example.myfilms.experiments.DETAILS_LOAD_RESULT_EXTRA
-import com.example.myfilms.experiments.LOAD_EMPTY
-import com.example.myfilms.experiments.MY_MOVIE
-import com.example.myfilms.experiments.OK
 import com.example.myfilms.viewModel.MainViewModel
 import com.example.myfilms.viewModel.AppState
 import com.example.myfilms.model.MovieItemFragment
 import com.example.myfilms.model.Movies
-import com.example.myfilms.model.rest_entities.MoviesDTO
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -32,7 +27,7 @@ class MainFragment : Fragment() {
 
     private val netReseiver : BroadcastReceiver = object  : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            Toast.makeText(context, "А теперь у нас перебои с чем-то еще.", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "А теперь у нас перебои с сетью.", Toast.LENGTH_LONG).show()
         }
     }
 
