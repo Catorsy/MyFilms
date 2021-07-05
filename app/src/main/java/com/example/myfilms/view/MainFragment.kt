@@ -1,23 +1,54 @@
 package com.example.myfilms.view
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myfilms.R
 import com.example.myfilms.adapter.MainFragmentAdapter
 import com.example.myfilms.databinding.MainFragmentBinding
+import com.example.myfilms.experiments.DETAILS_LOAD_RESULT_EXTRA
+import com.example.myfilms.experiments.LOAD_EMPTY
+import com.example.myfilms.experiments.MY_MOVIE
+import com.example.myfilms.experiments.OK
 import com.example.myfilms.viewModel.MainViewModel
 import com.example.myfilms.viewModel.AppState
 import com.example.myfilms.model.MovieItemFragment
 import com.example.myfilms.model.Movies
+import com.example.myfilms.model.rest_entities.MoviesDTO
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
+
+    private val netReseiver : BroadcastReceiver = object  : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            Toast.makeText(context, "А теперь у нас перебои с чем-то еще.", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        context?.registerReceiver(netReseiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+    }
+
+    override fun onStop() {
+        context?.unregisterReceiver(netReseiver)
+        super.onStop()
+    }
+
+    //здесь мог бы быть ваш сервис
+    //создаем ресивер, регистрируем его в онСтарт или онКреейт, отключаем в онСтоп или онДестрой
+    //пишем метод со стартСервис
 
     val ARG_MOVIE = "ARG_MOVIE"
     private lateinit var binding: MainFragmentBinding

@@ -6,9 +6,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myfilms.model.repository.Repository
+import kotlinx.coroutines.*
 
 class MainViewModel(private val repository: Repository) :
-        ViewModel(), LifecycleObserver {
+        ViewModel(), LifecycleObserver, CoroutineScope by MainScope() {
 
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
 
@@ -25,10 +26,15 @@ class MainViewModel(private val repository: Repository) :
 
     private fun getDataFromLocalSource() {
         liveDataToObserve.value = AppState.Loading //liveData хранит состояние приложения
-        Thread {
-            sleep(1000)
-            liveDataToObserve.postValue(AppState.Success(repository.getMoviesFromLocalStorage())) //об изменениях сразу узнает фрагмент, он
-            //подписан на liveData
-        }.start()
+        launch {
+            delay(1000)
+            liveDataToObserve.value = AppState.Success(repository.getMoviesFromLocalStorage())
+        }
+
+//        Thread {
+//            sleep(1000)
+//            liveDataToObserve.postValue(AppState.Success(repository.getMoviesFromLocalStorage())) //об изменениях сразу узнает фрагмент, он
+//            //подписан на liveData
+//        }.start()
     }
 }

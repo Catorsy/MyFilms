@@ -3,10 +3,7 @@ package com.example.myfilms.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myfilms.R
 import com.example.myfilms.databinding.FragmentMovieItemBinding
 import com.example.myfilms.model.Movies
 import com.example.myfilms.view.MainFragment
@@ -24,7 +21,7 @@ class MainFragmentAdapter(private var onItemViewClickListener: MainFragment.OnIt
 
     inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(movie: Movies) = with(binding) {
-            itemName.text = movie.name
+            itemName.text = movie.title
             description.text = movie.overview
             language.text = movie.original_language
             score.text = movie.vote_average.toString()
@@ -43,7 +40,17 @@ class MainFragmentAdapter(private var onItemViewClickListener: MainFragment.OnIt
 
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
+        //holder.setIsRecyclable(false) //по факту превращает RecyclerView в ListView
         holder.bind(moviesData[position])
+    }
+
+    //вместо holder.setIsRecyclable(false) это переопределение и ниже
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
 
     override fun getItemCount() = moviesData.size

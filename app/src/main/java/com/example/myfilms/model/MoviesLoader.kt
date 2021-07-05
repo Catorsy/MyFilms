@@ -36,7 +36,7 @@ object MoviesLoader {
 
     //метод, который будет грузить наши данные
     @RequiresApi(Build.VERSION_CODES.N)
-    fun loadMovie(name: String) : MoviesDTO? {
+    fun loadMovie(name: String?) : MoviesDTO? {
         try {
             val uri = URL("https://api.themoviedb.org/3/movie/${name}?api_key=$MOVIES_KEY&language=ru-RU") //какие параметры передаем,
             //такие приходят на вход в наш метод
