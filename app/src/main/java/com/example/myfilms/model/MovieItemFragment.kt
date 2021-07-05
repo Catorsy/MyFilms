@@ -5,12 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.myfilms.R
+import android.widget.Toast
 import com.example.myfilms.databinding.FragmentMovieItemBinding
+import com.example.myfilms.model.repository.RUSSIAN_LANGUAGE
 import com.example.myfilms.model.rest.rest_entities.MoviesDTO
+import com.example.myfilms.model.rest.rest_entities.MoviesRepo
 import com.example.myfilms.viewModel.AppState
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import com.example.myfilms.model.Movies as Movies
 
 const val ARG_MOVIE = "ARG_MOVIE"
@@ -64,34 +69,70 @@ class MovieItemFragment : Fragment() {
                         }
                     }
                 })
-                if (moviesName != null) {
-                    viewModel?.loadData(moviesName)
-                }
+                //жизнь до ретрофита
+//                if (moviesName != null) {
+//                    viewModel?.loadData(moviesName)
+               // }
+                MoviesRepo.api.getMovie(it.id, MoviesLoader.MOVIES_KEY, RUSSIAN_LANGUAGE)
+                    .enqueue(object : Callback<MoviesDTO> {
+                        override fun onResponse(
+                            call: Call<MoviesDTO>,
+                            response: Response<MoviesDTO>
+                        ) {
+                            if (response.isSuccessful) {
+                                val movie = response.body()
+                                val converted = movie?.let {
+                                    Movies (
+                                        id = it.id,
+                                        title = it.title,
+                                        overview = it.overview,
+                                        original_language = it.original_language,
+                                        release_date = it.release_date,
+                                        vote_average = it.vote_average,
+                                            )
+                                } ?: Movies() //просто по дефолту
+                                waitForMe.visibility = View.GONE
+                                itemName.text = converted.title
+                                score.text = converted.vote_average.toString()
+                                year.text = converted.release_date
+                                language.text = converted.original_language
+                                description.text = converted.overview
+
+                            }
+                        }
+
+                        //вызывается, если что-то случилось на нашей стороне, а не
+                        //не стороне сервера. Напр, запрос не прошел, исчез интернет.
+                        override fun onFailure(call: Call<MoviesDTO>, t: Throwable) {
+                            Toast.makeText(context, "Мы не смогли отправить запрос.", Toast.LENGTH_LONG).show()
+                        }
+
+                    })
             }
         }
     }
 
-    private fun initView() = with (binding) {
-        description.text = movieData?.overview
-        itemName.text = movieData?.title
-        language.text = movieData?.original_language
-        year.text = movieData?.release_date
-        score.text = movieData?.vote_average.toString()
-        movieData?.numberPicture?.let { movieImage.setImageResource(it) }
-    }
-
-    //отображаем полученные данные
-    private fun displayMovies(moviesDTO: MoviesDTO) = with (binding){
-            linearDetails.visibility = View.VISIBLE
-            waitForMe.visibility = View.GONE
-            val name = moviesBundle.title //будем запрашивать фильм по имени
-            itemName.text = name
-            score.text = moviesDTO?.vote_average.toString()
-            year.text = moviesDTO?.release_date
-            language.text = moviesDTO?.original_language
-            description.text = moviesDTO?.overview
-            movieImage.setImageResource(R.drawable.prestige) //TODO картинки!
-    }
+//    private fun initView() = with (binding) {
+//        description.text = movieData?.overview
+//        itemName.text = movieData?.title
+//        language.text = movieData?.original_language
+//        year.text = movieData?.release_date
+//        score.text = movieData?.vote_average.toString()
+//        movieData?.numberPicture?.let { movieImage.setImageResource(it) }
+//    }
+//
+//    //отображаем полученные данные
+//    private fun displayMovies(moviesDTO: MoviesDTO) = with (binding){
+//            linearDetails.visibility = View.VISIBLE
+//            waitForMe.visibility = View.GONE
+//            val name = moviesBundle.title //будем запрашивать фильм по имени
+//            itemName.text = name
+//            score.text = moviesDTO?.vote_average.toString()
+//            year.text = moviesDTO?.release_date
+//            language.text = moviesDTO?.original_language
+//            description.text = moviesDTO?.overview
+//            movieImage.setImageResource(R.drawable.prestige) //TODO картинки!
+//    }
 
 
     companion object {

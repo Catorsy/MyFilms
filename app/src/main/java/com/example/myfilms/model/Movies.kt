@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Movies(
-        val id: Int?,
+        val id: Int? = 51876,
         val title: String? = "Области тьмы",
         val overview: String? = "История о человеке, которому удаётся максимально раскрыть возможности своего мозга.",
         val original_language: String? = "Английский",

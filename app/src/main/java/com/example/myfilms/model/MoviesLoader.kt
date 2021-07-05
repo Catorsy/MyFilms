@@ -14,7 +14,7 @@ import javax.net.ssl.HttpsURLConnection
 
 object MoviesLoader {
 
-    private const val MOVIES_KEY = "697bdb3bdc1a9dfcf325c28b417a9ba6"
+    const val MOVIES_KEY = "697bdb3bdc1a9dfcf325c28b417a9ba6"
 
     //если не айпи 24, то вызываем метод для старых версий
     private fun getLinesForOld(reader: BufferedReader) : String {
