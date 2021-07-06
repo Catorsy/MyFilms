@@ -14,7 +14,7 @@ data class Movies(
         val release_date: String? = "2015",
         val vote_average: Number? = 8,
         val numberPicture: Int? = 0,
-        val imdb_id: String? = "dark", //это что? Вот сюда записывют постер?
+        val poster_path: String? = "/sLmyLSIZZBhHWZWAkM4hSRlpd0.jpg" //нет, постер записывают сюда
 ) : Serializable, Parcelable
 
 fun getListOfMovies() = listOf(

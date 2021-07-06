@@ -23,6 +23,7 @@ class RepositoryImpl : Repository {
             original_language = dto?.original_language,
             release_date = dto?.release_date,
             vote_average = dto?.vote_average,
+            poster_path = dto?.poster_path
         )
     }
 
@@ -36,6 +37,7 @@ class RepositoryImpl : Repository {
 //                dto?.original_language,
 //                dto?.release_date,
 //                dto?.vote_average,
+  //              dto?.poster_path
 //        )
 //    }
 

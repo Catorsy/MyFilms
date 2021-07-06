@@ -27,6 +27,7 @@ class MainFragmentAdapter(private var onItemViewClickListener: MainFragment.OnIt
             score.text = movie.vote_average.toString()
             year.text = movie.release_date
             movie.numberPicture?.let { movieImage.setImageResource(it) }
+            //TODO если будет нужно, сюда тоже можно будет поставить пикассо вместо строки выше
             root.setOnClickListener {
                 onItemViewClickListener?.onItemViewClick(movie)
             }

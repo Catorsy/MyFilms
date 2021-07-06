@@ -10,4 +10,5 @@ data class MoviesDTO(
         val original_language: String?,
         val release_date: String?,
         val vote_average: Number?,
+        val poster_path: String?,
 ) : Serializable

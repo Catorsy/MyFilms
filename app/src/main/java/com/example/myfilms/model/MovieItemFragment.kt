@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.myfilms.databinding.FragmentMovieItemBinding
 import com.example.myfilms.model.repository.RUSSIAN_LANGUAGE
+import com.example.myfilms.model.rest.rest_entities.ApiUtils
 import com.example.myfilms.model.rest.rest_entities.MoviesDTO
 import com.example.myfilms.model.rest.rest_entities.MoviesRepo
 import com.example.myfilms.viewModel.AppState
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -61,11 +63,13 @@ class MovieItemFragment : Fragment() {
                         AppState.Loading -> binding.waitForMe.visibility = View.VISIBLE
                         is AppState.Success -> {
                             waitForMe.visibility = View.GONE
-                            itemName.text = appState.moviesData[0].title
-                            score.text = appState.moviesData[0].vote_average?.toString()
-                            year.text = appState.moviesData[0].release_date
-                            language.text = appState.moviesData[0].original_language
-                            description.text = appState.moviesData[0].overview
+                            itemName.text = appState.moviesData.first().title
+                            score.text = appState.moviesData.first().vote_average?.toString()
+                            year.text = appState.moviesData.first().release_date
+                            language.text = appState.moviesData.first().original_language
+                            description.text = appState.moviesData.first().overview
+                            Picasso.get().load("{${ApiUtils.BASE_IMAGE_SITE}${appState.moviesData.first().poster_path}}")
+                                .fit().into(movieImage)
                         }
                     }
                 })
@@ -89,6 +93,8 @@ class MovieItemFragment : Fragment() {
                                         original_language = it.original_language,
                                         release_date = it.release_date,
                                         vote_average = it.vote_average,
+                                        poster_path = it.poster_path
+
                                             )
                                 } ?: Movies() //просто по дефолту
                                 waitForMe.visibility = View.GONE
@@ -97,7 +103,8 @@ class MovieItemFragment : Fragment() {
                                 year.text = converted.release_date
                                 language.text = converted.original_language
                                 description.text = converted.overview
-
+                                Picasso.get().load("${ApiUtils.BASE_IMAGE_SITE}${converted.poster_path}")
+                                    .into(movieImage)
                             }
                         }
 

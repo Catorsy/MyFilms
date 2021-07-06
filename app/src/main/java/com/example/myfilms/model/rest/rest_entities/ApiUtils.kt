@@ -7,6 +7,7 @@ object ApiUtils {
     private val baseUrlMainPart = "https://api.themoviedb.org/"
     private val baseUrlVersion = "3/movie/"
     val baseUrl = "$baseUrlMainPart$baseUrlVersion"
+    val BASE_IMAGE_SITE = "https://image.tmdb.org/t/p/w500"
 
     fun getOkHTTPBuilderWithHeaders() : OkHttpClient {//OkHttpClient идет в комплекте с ретрофитом
         val httpClient = OkHttpClient.Builder()
