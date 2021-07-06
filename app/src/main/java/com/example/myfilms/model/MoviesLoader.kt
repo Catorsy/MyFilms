@@ -3,8 +3,7 @@ package com.example.myfilms.model
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
-import com.example.myfilms.BuildConfig
-import com.example.myfilms.model.rest_entities.MoviesDTO
+import com.example.myfilms.model.rest.rest_entities.MoviesDTO
 import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -15,7 +14,7 @@ import javax.net.ssl.HttpsURLConnection
 
 object MoviesLoader {
 
-    private const val MOVIES_KEY = "697bdb3bdc1a9dfcf325c28b417a9ba6"
+    const val MOVIES_KEY = "697bdb3bdc1a9dfcf325c28b417a9ba6"
 
     //если не айпи 24, то вызываем метод для старых версий
     private fun getLinesForOld(reader: BufferedReader) : String {
@@ -36,9 +35,9 @@ object MoviesLoader {
 
     //метод, который будет грузить наши данные
     @RequiresApi(Build.VERSION_CODES.N)
-    fun loadMovie(name: String?) : MoviesDTO? {
+    fun loadMovie(id: Int?) : MoviesDTO? {
         try {
-            val uri = URL("https://api.themoviedb.org/3/movie/${name}?api_key=$MOVIES_KEY&language=ru-RU") //какие параметры передаем,
+            val uri = URL("https://api.themoviedb.org/3/movie/$id?api_key=$MOVIES_KEY&language=ru-RU") //какие параметры передаем,
             //такие приходят на вход в наш метод
             lateinit var urlConnection: HttpsURLConnection
             try {
