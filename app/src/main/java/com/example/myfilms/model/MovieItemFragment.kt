@@ -68,7 +68,7 @@ class MovieItemFragment : Fragment() {
                             year.text = appState.moviesData.first().release_date
                             language.text = appState.moviesData.first().original_language
                             description.text = appState.moviesData.first().overview
-                            Picasso.get().load("{${ApiUtils.BASE_IMAGE_SITE}${appState.moviesData.first().poster_path}}")
+                            Picasso.get().load("${ApiUtils.BASE_IMAGE_SITE}${appState.moviesData.first().poster_path}")
                                 .fit().into(movieImage)
                         }
                     }
@@ -77,7 +77,7 @@ class MovieItemFragment : Fragment() {
 //                if (moviesName != null) {
 //                    viewModel?.loadData(moviesName)
                // }
-                MoviesRepo.api.getMovie(it.id, MoviesLoader.MOVIES_KEY, RUSSIAN_LANGUAGE)
+                MoviesRepo.api.getMovie(it.id, RUSSIAN_LANGUAGE) //раньше тут был ключ
                     .enqueue(object : Callback<MoviesDTO> {
                         override fun onResponse(
                             call: Call<MoviesDTO>,
@@ -93,8 +93,8 @@ class MovieItemFragment : Fragment() {
                                         original_language = it.original_language,
                                         release_date = it.release_date,
                                         vote_average = it.vote_average,
-                                        poster_path = it.poster_path
-
+                                        poster_path = it.poster_path,
+                                        adult = it.adult,
                                             )
                                 } ?: Movies() //просто по дефолту
                                 waitForMe.visibility = View.GONE

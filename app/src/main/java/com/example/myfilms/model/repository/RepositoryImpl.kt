@@ -9,11 +9,14 @@ import com.example.myfilms.model.rest.rest_entities.MoviesRepo
 
 const val RUSSIAN_LANGUAGE = "ru-RU"
 
+//val dto = MoviesRepo.api.getMovie(id, MoviesLoader.MOVIES_KEY, RUSSIAN_LANGUAGE)
+//    .execute().body()
+
 class RepositoryImpl : Repository {
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun getMoviesFromServer(id: Int): Movies {
-        val dto = MoviesRepo.api.getMovie(id, MoviesLoader.MOVIES_KEY, RUSSIAN_LANGUAGE)
+        val dto = MoviesRepo.api.getMovie(id, RUSSIAN_LANGUAGE)
             .execute().body()
         //.execute не даст выполниться следующей строчке, пока не выполнится предыдущая
         return Movies(
@@ -23,7 +26,9 @@ class RepositoryImpl : Repository {
             original_language = dto?.original_language,
             release_date = dto?.release_date,
             vote_average = dto?.vote_average,
-            poster_path = dto?.poster_path
+            poster_path = dto?.poster_path,
+            adult = dto?.adult
+
         )
     }
 
