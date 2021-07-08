@@ -4,13 +4,12 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.myfilms.model.Movies
 import com.example.myfilms.model.MoviesLoader
+import com.example.myfilms.model.database.Database
+import com.example.myfilms.model.database.History
 import com.example.myfilms.model.getListOfMovies
 import com.example.myfilms.model.rest.rest_entities.MoviesRepo
 
 const val RUSSIAN_LANGUAGE = "ru-RU"
-
-//val dto = MoviesRepo.api.getMovie(id, MoviesLoader.MOVIES_KEY, RUSSIAN_LANGUAGE)
-//    .execute().body()
 
 class RepositoryImpl : Repository {
 
@@ -32,20 +31,24 @@ class RepositoryImpl : Repository {
         )
     }
 
-//    @RequiresApi(Build.VERSION_CODES.N)
-//    override fun getMoviesFromServer(id: Int): Movies {
-//        val dto = MoviesLoader.loadMovie(id)
-//        return Movies(
-//                dto?.id,
-//                dto?.title,
-//                dto?.overview,
-//                dto?.original_language,
-//                dto?.release_date,
-//                dto?.vote_average,
-  //              dto?.poster_path
-//        )
-//    }
-
     override fun getMoviesFromLocalStorage() = getListOfMovies()
 
+    override fun getAllHistory(): List<Movies> =
+        convertHistoryEntityToMovies(Database.db.historyDao().all())
+
+    override fun saveEntity(movies: Movies) {
+        Database.db.historyDao().insert(convertMovieToHistoryEntity(movies))
+    }
+
+    private fun convertHistoryEntityToMovies(entityList: List <History>) =
+        entityList.map {
+            Movies(it.idMovie, it.movieName, it.overview, it.original_language, it.year)
+        }
+
+    private fun convertMovieToHistoryEntity(movies : Movies) : History =
+        History(0, movies.id ?: 0, movies.title ?: "", movies.overview,
+            movies.original_language, movies.release_date ?: "")
 }
+
+
+

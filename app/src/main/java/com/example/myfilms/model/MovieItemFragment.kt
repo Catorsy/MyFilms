@@ -34,7 +34,6 @@ class MovieItemFragment : Fragment() {
         arguments?.let {
             movieData = it.getSerializable(ARG_MOVIE) as Movies
         }
-
     }
 
     override fun onCreateView(
@@ -73,48 +72,51 @@ class MovieItemFragment : Fragment() {
                         }
                     }
                 })
-                //жизнь до ретрофита
-//                if (moviesName != null) {
-//                    viewModel?.loadData(moviesName)
-               // }
-                MoviesRepo.api.getMovie(it.id, RUSSIAN_LANGUAGE) //раньше тут был ключ
-                    .enqueue(object : Callback<MoviesDTO> {
-                        override fun onResponse(
-                            call: Call<MoviesDTO>,
-                            response: Response<MoviesDTO>
-                        ) {
-                            if (response.isSuccessful) {
-                                val movie = response.body()
-                                val converted = movie?.let {
-                                    Movies (
-                                        id = it.id,
-                                        title = it.title,
-                                        overview = it.overview,
-                                        original_language = it.original_language,
-                                        release_date = it.release_date,
-                                        vote_average = it.vote_average,
-                                        poster_path = it.poster_path,
-                                        adult = it.adult,
-                                            )
-                                } ?: Movies() //просто по дефолту
-                                waitForMe.visibility = View.GONE
-                                itemName.text = converted.title
-                                score.text = converted.vote_average.toString()
-                                year.text = converted.release_date
-                                language.text = converted.original_language
-                                description.text = converted.overview
-                                Picasso.get().load("${ApiUtils.BASE_IMAGE_SITE}${converted.poster_path}")
-                                    .into(movieImage)
-                            }
-                        }
+                        //жизнь до ретрофита
+                if (moviesName != null) {
+                    viewModel?.loadData(moviesName)
+                }
+                Picasso.get().load("${ApiUtils.BASE_IMAGE_SITE}${it.poster_path}")
+                    .into(movieImage)
 
-                        //вызывается, если что-то случилось на нашей стороне, а не
-                        //не стороне сервера. Напр, запрос не прошел, исчез интернет.
-                        override fun onFailure(call: Call<MoviesDTO>, t: Throwable) {
-                            Toast.makeText(context, "Мы не смогли отправить запрос.", Toast.LENGTH_LONG).show()
-                        }
-
-                    })
+//                MoviesRepo.api.getMovie(it.id, RUSSIAN_LANGUAGE) //раньше тут был ключ
+//                    .enqueue(object : Callback<MoviesDTO> {
+//                        override fun onResponse(
+//                            call: Call<MoviesDTO>,
+//                            response: Response<MoviesDTO>
+//                        ) {
+//                            if (response.isSuccessful) {
+//                                val movie = response.body()
+//                                val converted = movie?.let {
+//                                    Movies (
+//                                        id = it.id,
+//                                        title = it.title,
+//                                        overview = it.overview,
+//                                        original_language = it.original_language,
+//                                        release_date = it.release_date,
+//                                        vote_average = it.vote_average,
+//                                        poster_path = it.poster_path,
+//                                        adult = it.adult,
+//                                            )
+//                                } ?: Movies() //просто по дефолту
+//                                waitForMe.visibility = View.GONE
+//                                itemName.text = converted.title
+//                                score.text = converted.vote_average.toString()
+//                                year.text = converted.release_date
+//                                language.text = converted.original_language
+//                                description.text = converted.overview
+//                                Picasso.get().load("${ApiUtils.BASE_IMAGE_SITE}${converted.poster_path}")
+//                                    .into(movieImage)
+//                            }
+//                        }
+//
+//                        //вызывается, если что-то случилось на нашей стороне, а не
+//                        //не стороне сервера. Напр, запрос не прошел, исчез интернет.
+//                        override fun onFailure(call: Call<MoviesDTO>, t: Throwable) {
+//                            Toast.makeText(context, "Мы не смогли отправить запрос.", Toast.LENGTH_LONG).show()
+//                        }
+//
+//                    })
             }
         }
     }

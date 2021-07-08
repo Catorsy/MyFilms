@@ -7,22 +7,20 @@ import com.example.myfilms.model.repository.Repository
 import com.example.myfilms.viewModel.AppState
 import kotlinx.coroutines.*
 
-class MovieItemViewModel(private val repository: Repository) : ViewModel(), LifecycleObserver, CoroutineScope by MainScope() {
+class MovieItemViewModel(private val repository: Repository) : ViewModel(), LifecycleObserver,
+    CoroutineScope by MainScope() {
     val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
 
-            //грузим наши данные
-    fun loadData (id: Int) {
+    fun loadData(id: Int) {
         liveDataToObserve.value = AppState.Loading
 
-                launch {
-                    val job = async(Dispatchers.IO) { repository.getMoviesFromServer(id) }
-                    liveDataToObserve.value = AppState.Success(listOf(job.await()))
-                }
-
-//        Thread {
-//            val data = repository.getMoviesFromServer(name)
-//            liveDataToObserve.postValue(AppState.Success(listOf(data))) //postValue - синхронизация с потоком ui,
-//            //туда постим нашу дату
-//        }.start()
+        launch {
+            val job = async(Dispatchers.IO) {
+                val data = repository.getMoviesFromServer(id)
+                repository.saveEntity(data) //отправляем в нашу БД
+                data //вернем
+            }
+            liveDataToObserve.value = AppState.Success(listOf(job.await()))
+        }
     }
 }
