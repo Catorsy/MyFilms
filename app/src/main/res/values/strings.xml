@@ -6,4 +6,7 @@
     <string name="sucess">Success</string>
     <string name="no_sucess">No Success</string>
     <string name="russian">Русский</string>
+    <string name="history">История</string>
+    <string name="adult_on">Взрослые фильмы открыты</string>
+    <string name="adult_off">Взрослые фильмы скрыты</string>
 </resources>

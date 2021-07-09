@@ -1,5 +1,7 @@
 package com.example.myfilms.model.rest.rest_entities
 
+import com.example.myfilms.BuildConfig
+import com.example.myfilms.model.MoviesLoader
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
@@ -17,6 +19,7 @@ object ApiUtils {
         httpClient.addInterceptor { chain ->
         val original = chain.request() //к оригинальному реквесту добавляем поля и заново билдим
         val request = original.newBuilder()
+            .url(original.url().newBuilder().addQueryParameter("api_key", MoviesLoader.MOVIES_KEY).build())
             .method(original.method(), original.body())
             .build()
             //можно в .header прописать ключ
