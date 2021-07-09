@@ -4,9 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myfilms.R
 import com.example.myfilms.databinding.FragmentMovieItemBinding
 import com.example.myfilms.model.Movies
 import com.example.myfilms.view.MainFragment
+import com.example.myfilms.view.adult
 
 class MainFragmentAdapter(private var onItemViewClickListener: MainFragment.OnItemViewClickListener?)
     : RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
@@ -21,24 +23,42 @@ class MainFragmentAdapter(private var onItemViewClickListener: MainFragment.OnIt
 
     inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(movie: Movies) = with(binding) {
-            if (movie.adult == !true) { //TODO сделать переключатель
-                itemName.text = movie.title
-                description.text = movie.overview
-                language.text = movie.original_language
-                score.text = movie.vote_average.toString()
-                year.text = movie.release_date
-                movie.numberPicture?.let { movieImage.setImageResource(it) }
-                //TODO если будет нужно, сюда тоже можно будет поставить пикассо вместо строки выше
-                root.setOnClickListener {
-                    onItemViewClickListener?.onItemViewClick(movie)
+            when (adult) {
+                true -> {
+                    itemName.text = movie.title
+                    description.text = movie.overview
+                    language.text = movie.original_language
+                    score.text = movie.vote_average.toString()
+                    year.text = movie.release_date
+                    movie.numberPicture?.let { movieImage.setImageResource(it) }
+                    //TODO если будет нужно, сюда тоже можно будет поставить пикассо вместо строки выше
+                    root.setOnClickListener {
+                        onItemViewClickListener?.onItemViewClick(movie)
+                    }
                 }
-            } else {
-                itemName.text = "Включите взрослый режим"
-                description.text = "Скрыто"
-                language.text = "Скрыто"
-                score.text = "?"
-                year.text = "Скрыто"
+                false -> {
+                    if (movie.adult == !true) {
+                        itemName.text = movie.title
+                        description.text = movie.overview
+                        language.text = movie.original_language
+                        score.text = movie.vote_average.toString()
+                        year.text = movie.release_date
+                        movie.numberPicture?.let { movieImage.setImageResource(it) }
+                        //TODO если будет нужно, сюда тоже можно будет поставить пикассо вместо строки выше
+                        root.setOnClickListener {
+                            onItemViewClickListener?.onItemViewClick(movie)
+                        }
+                    } else {
+                        itemName.text = "Включите взрослый режим"
+                        description.text = "Скрыто"
+                        language.text = "Скрыто"
+                        score.text = "?"
+                        year.text = "Скрыто"
+                        movieImage.setImageResource(R.drawable.prohibided)
+                    }
+                }
             }
+
         }
     }
 

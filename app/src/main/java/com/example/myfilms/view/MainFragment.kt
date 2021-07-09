@@ -30,7 +30,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 var adult = false
 private const val dataSetKey = "dataSetKey"
 
-//сделаны пункты 3,4, в 1 сохраняется настройка радиоБаттон, список пока не формируется
+//сделаны пункты 3,4,1
 class MainFragment : Fragment() {
 
     private val netReseiver : BroadcastReceiver = object  : BroadcastReceiver() {
