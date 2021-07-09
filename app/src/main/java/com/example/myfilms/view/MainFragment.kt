@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,10 +27,11 @@ import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.main_fragment.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-//сделаны пункты 3,4, а 1,2 в процессе
-class MainFragment : Fragment() {
+var adult = false
+private const val dataSetKey = "dataSetKey"
 
-    var adult = false
+//сделаны пункты 3,4, в 1 сохраняется настройка радиоБаттон, список пока не формируется
+class MainFragment : Fragment() {
 
     private val netReseiver : BroadcastReceiver = object  : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -78,12 +80,17 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.adapter = adapter
 
+        adult = activity?.getPreferences(Context.MODE_PRIVATE)
+            ?.getBoolean(dataSetKey, false) ?: false
+        radio_adult_off.isChecked = !adult
+        radio_adult_on.isChecked = adult
+        initRadio()
+
         val observer = Observer<AppState> { renderData(it) } //выполняет renderData сразу, как только LiveData обновляет данные
         with (viewModel) {
             getLiveData().observe(viewLifecycleOwner, observer) ////viewLifecycleOwner - универсальня ссылка на активити или фрагмент
             getMoviesFromLocalSource()
         }
-
     }
 
     private fun renderData(appState: AppState) = with(binding) {
@@ -113,6 +120,24 @@ class MainFragment : Fragment() {
     override fun onDestroy() {
         adapter.removeListener()
         super.onDestroy()
+    }
+
+    fun initRadio () {
+        radio_adult_on.setOnClickListener {
+            adult = true
+            saveDataToDisk()
+            Toast.makeText(context, getString(R.string.adult_on), Toast.LENGTH_LONG).show()
+        }
+        radio_adult_off.setOnClickListener {
+            adult = false
+            saveDataToDisk()
+            Toast.makeText(context, getString(R.string.adult_off), Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun saveDataToDisk() {
+        val editor = activity?.getPreferences(Context.MODE_PRIVATE)?.edit()
+        editor?.putBoolean(dataSetKey, adult)?.apply()
     }
 
     companion object {
