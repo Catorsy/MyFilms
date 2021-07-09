@@ -68,7 +68,7 @@ class MovieItemFragment : Fragment() {
                             language.text = appState.moviesData.first().original_language
                             description.text = appState.moviesData.first().overview
                             Picasso.get().load("${ApiUtils.BASE_IMAGE_SITE}${appState.moviesData.first().poster_path}")
-                                .fit().into(movieImage)
+                                .into(movieImage)
                         }
                     }
                 })
