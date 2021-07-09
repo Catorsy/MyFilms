@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,9 +22,14 @@ import com.example.myfilms.viewModel.AppState
 import com.example.myfilms.model.MovieItemFragment
 import com.example.myfilms.model.Movies
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.android.synthetic.main.main_fragment.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+//сделаны пункты 3,4, а 1,2 в процессе
 class MainFragment : Fragment() {
+
+    var adult = false
 
     private val netReseiver : BroadcastReceiver = object  : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {

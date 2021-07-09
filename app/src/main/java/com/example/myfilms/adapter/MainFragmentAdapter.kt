@@ -21,15 +21,23 @@ class MainFragmentAdapter(private var onItemViewClickListener: MainFragment.OnIt
 
     inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(movie: Movies) = with(binding) {
-            itemName.text = movie.title
-            description.text = movie.overview
-            language.text = movie.original_language
-            score.text = movie.vote_average.toString()
-            year.text = movie.release_date
-            movie.numberPicture?.let { movieImage.setImageResource(it) }
-            //TODO если будет нужно, сюда тоже можно будет поставить пикассо вместо строки выше
-            root.setOnClickListener {
-                onItemViewClickListener?.onItemViewClick(movie)
+            if (movie.adult == !true) { //TODO сделать переключатель
+                itemName.text = movie.title
+                description.text = movie.overview
+                language.text = movie.original_language
+                score.text = movie.vote_average.toString()
+                year.text = movie.release_date
+                movie.numberPicture?.let { movieImage.setImageResource(it) }
+                //TODO если будет нужно, сюда тоже можно будет поставить пикассо вместо строки выше
+                root.setOnClickListener {
+                    onItemViewClickListener?.onItemViewClick(movie)
+                }
+            } else {
+                itemName.text = "Включите взрослый режим"
+                description.text = "Скрыто"
+                language.text = "Скрыто"
+                score.text = "?"
+                year.text = "Скрыто"
             }
         }
     }
