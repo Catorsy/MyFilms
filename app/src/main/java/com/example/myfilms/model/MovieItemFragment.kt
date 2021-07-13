@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.myfilms.R
 import com.example.myfilms.databinding.FragmentMovieItemBinding
+import com.example.myfilms.framework.ui.contacts.ContactsFragment
 import com.example.myfilms.model.repository.RUSSIAN_LANGUAGE
 import com.example.myfilms.model.rest.rest_entities.ApiUtils
 import com.example.myfilms.model.rest.rest_entities.MoviesDTO
@@ -14,6 +16,7 @@ import com.example.myfilms.model.rest.rest_entities.MoviesRepo
 import com.example.myfilms.viewModel.AppState
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_movie_item.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import retrofit2.Call
 import retrofit2.Callback

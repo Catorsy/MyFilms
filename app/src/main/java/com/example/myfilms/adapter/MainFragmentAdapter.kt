@@ -58,7 +58,6 @@ class MainFragmentAdapter(private var onItemViewClickListener: MainFragment.OnIt
                     }
                 }
             }
-
         }
     }
 

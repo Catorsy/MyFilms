@@ -23,6 +23,7 @@ import com.example.myfilms.viewModel.AppState
 import com.example.myfilms.model.MovieItemFragment
 import com.example.myfilms.model.Movies
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_movie_item.*
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.main_fragment.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
