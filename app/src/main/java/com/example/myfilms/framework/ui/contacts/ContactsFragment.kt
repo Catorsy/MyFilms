@@ -103,8 +103,8 @@ class ContactsFragment : Fragment() {
                             cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME
                             )
                         )
-                        val contact = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
-                        addView(name, contact)
+                       // val contact = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID)
+                        addView(name)
                     }
                 }
             }
@@ -112,9 +112,9 @@ class ContactsFragment : Fragment() {
         }
     }
 
-    private fun addView(textToShow: String, contact: Int) {
+    private fun addView(textToShow: String) {
         binding.containerForContacts.addView(AppCompatTextView(requireContext()).apply {
-            text = "$textToShow $contact"
+            text = textToShow
             textSize = resources.getDimension(R.dimen.main_container_text_size)
             setTextColor(Color.parseColor("#DAEA4A"))
         })
