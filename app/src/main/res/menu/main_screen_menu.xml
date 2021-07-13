@@ -7,4 +7,11 @@
         android:id="@+id/look_history"
         android:title="@string/history"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/look_call_me"
+        android:title="@string/call_me"
+        android:icon="@drawable/ic_call_me"
+        app:showAsAction="always" />
+
 </menu>

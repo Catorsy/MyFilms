@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.example.myfilms.R
 import com.example.myfilms.framework.ui.History.HistoryFragment
+import com.example.myfilms.framework.ui.contacts.ContactsFragment
 
 //С сервисом нормально не успела.
 
@@ -36,7 +37,15 @@ class MainActivity : AppCompatActivity() {
                         .commitAllowingStateLoss()
                 }
                 true
-            } //другие пункты меню
+            }R.id.look_call_me -> {
+                supportFragmentManager.apply {
+                    beginTransaction()
+                        .add(R.id.container, ContactsFragment.newInstance())
+                        .addToBackStack("")
+                        .commitAllowingStateLoss()
+                }
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

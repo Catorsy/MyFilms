@@ -9,4 +9,6 @@
     <string name="history">История</string>
     <string name="adult_on">Взрослые фильмы открыты</string>
     <string name="adult_off">Взрослые фильмы скрыты</string>
+    <string name="call_my_friend_and_tell">Позвонить другу и рассказать!</string>
+    <string name="call_me">Позвонить</string>
 </resources>

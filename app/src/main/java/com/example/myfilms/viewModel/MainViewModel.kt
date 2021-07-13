@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myfilms.model.repository.Repository
+import kotlinx.android.synthetic.main.fragment_movie_item.*
 import kotlinx.coroutines.*
 
 class MainViewModel(private val repository: Repository) :
