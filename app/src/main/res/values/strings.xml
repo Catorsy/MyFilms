@@ -11,4 +11,10 @@
     <string name="adult_off">Взрослые фильмы скрыты</string>
     <string name="call_my_friend_and_tell">Позвонить другу и рассказать!</string>
     <string name="call_me">Позвонить</string>
+    <string name="your_location_is">Ваше местоположение:</string>
+    <string name="where_am_i">Где я?!</string>
+    <string name="need_permission">!Need Permission!</string>
+    <string name="looks_like_no_geo">Похоже, отслеживание местоположения выключено/недоступно</string>
+    <string name="your_adres">Ваш адрес</string>
+    <string name="close">Закрыть</string>
 </resources>

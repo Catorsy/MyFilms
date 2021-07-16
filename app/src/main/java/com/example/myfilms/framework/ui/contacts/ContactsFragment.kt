@@ -103,7 +103,7 @@ class ContactsFragment : Fragment() {
                             cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME
                             )
                         )
-                       // val contact = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID)
+                        //val contact = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
                         addView(name)
                     }
                 }
