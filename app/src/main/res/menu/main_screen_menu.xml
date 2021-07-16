@@ -8,15 +8,20 @@
         android:title="@string/history"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/look_call_me"
-        android:title="@string/call_me"
-        android:icon="@drawable/ic_call_me"
-        app:showAsAction="always" />
+<!--    <item-->
+<!--        android:id="@+id/look_call_me"-->
+<!--        android:title="@string/call_me"-->
+<!--        android:icon="@drawable/ic_call_me"-->
+<!--        app:showAsAction="always" />-->
 
     <item
         android:id="@+id/where_am_i"
         android:title="@string/where_am_i"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/map_open"
+        android:title="@string/map"
         app:showAsAction="always" />
 
 </menu>

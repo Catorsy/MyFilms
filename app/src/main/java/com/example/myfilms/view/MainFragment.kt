@@ -31,12 +31,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 var adult = false
 private const val dataSetKey = "dataSetKey"
 
-//сделаны пункты 3,4,1
 class MainFragment : Fragment() {
 
     private val netReseiver : BroadcastReceiver = object  : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            Toast.makeText(context, "А теперь у нас перебои с сетью.", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, getString(R.string.change_net_status), Toast.LENGTH_LONG).show()
         }
     }
 

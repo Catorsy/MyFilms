@@ -15,20 +15,17 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import com.example.myfilms.R
 import com.example.myfilms.databinding.MainActivityBinding
 import com.example.myfilms.framework.ui.History.HistoryFragment
-import com.example.myfilms.framework.ui.contacts.ContactsFragment
-import com.example.myfilms.framework.ui.map.LocationFragment
+import com.example.myfilms.framework.ui.map.MapsFragment
 import kotlinx.android.synthetic.main.main_activity.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import java.io.IOException
-import java.security.AccessController.getContext
 
 //С сервисом нормально не успела.
 
@@ -82,18 +79,26 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                         .commitAllowingStateLoss()
                 }
                 true
-            }R.id.look_call_me -> {
-                supportFragmentManager.apply {
-                    beginTransaction()
-                        .add(R.id.container, ContactsFragment.newInstance())
-                        .addToBackStack("")
-                        .commitAllowingStateLoss()
-                }
-                true
+//            }R.id.look_call_me -> {
+//                supportFragmentManager.apply {
+//                    beginTransaction()
+//                        .add(R.id.container, ContactsFragment.newInstance())
+//                        .addToBackStack("")
+//                        .commitAllowingStateLoss()
+//                }
+//                true
             }R.id.where_am_i -> {
               supportFragmentManager.apply {
                   checkPermission()
               }
+                true
+            }R.id.map_open -> {
+                supportFragmentManager.apply {
+                    beginTransaction()
+                        .add(R.id.container, MapsFragment.newInstance())
+                        .addToBackStack("")
+                        .commitAllowingStateLoss()
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -153,7 +158,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                 //показываем этот адрес в диалоге
                 container.post {
                     //можно взять не адрес, а, например, имя страны
-                    showAddressDialog(addresses[0].getAddressLine(0), location)
+                    showAddressDialog(addresses.first().getAddressLine(0), location)
                 }
             } catch (e: IOException) {
                 e.printStackTrace()
