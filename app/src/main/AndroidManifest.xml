@@ -15,9 +15,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFilms">
-        <service
-            android:name=".experiments.MoviesService"
-            android:exported="false"></service>
 
         <activity android:name=".view.MainActivity">
             <intent-filter>
@@ -27,11 +24,19 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name=".framework.ui.MessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
         <receiver android:name=".experiments.LangBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
             </intent-filter>
         </receiver>
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
