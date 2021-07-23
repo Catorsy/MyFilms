@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">MyFilms</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="film_name">Название фильма</string>
+    <string name="sucess">Success</string>
+    <string name="no_sucess">No Success</string>
+    <string name="russian">Русский</string>
+    <string name="history">История</string>
+    <string name="adult_on">Взр$$ослые фильмы открыты</string>
+    <string name="adult_off">Взрослые фильмы с$$крыты</string>
+    <string name="call_my_friend_and_tell">Позвонить другу и рассказать!</string>
+    <string name="call_me">Позвонить</string>
+    <string name="your_location_is">Ваше местоположение:</string>
+    <string name="where_am_i">Где я?!</string>
+    <string name="need_permission">!Need Permission!</string>
+    <string name="looks_like_no_geo">Похоже, отслеживание местоположения выключено/недоступно</string>
+    <string name="your_adres">Ваш ад$$рес</string>
+    <string name="close">Закрыть</string>
+    <string name="change_net_status">Изменение с$$татуса подключения к с$$ети</string>
+    <string name="api_key_google_maps" translatable="false">AIzaSyCLVCFS0MR0gtW_uEaaoKaeKIYzIShhs0M</string>
+    <string name="find">Поиск</string>
+    <string name="write_something">Введите запрос</string>
+    <string name="map_mode">Режим карты</string>
+    <string name="normal">Нормальный</string>
+    <string name="satellites">Спу$$тники</string>
+    <string name="terrain">Схема</string>
+    <string name="traffic">Трафик</string>
+    <string name="start_marker">Любовь</string>
+    <string name="map">Карта</string>
+</resources>

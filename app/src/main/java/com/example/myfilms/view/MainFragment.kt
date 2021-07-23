@@ -15,6 +15,7 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myfilms.BuildConfig
 import com.example.myfilms.R
 import com.example.myfilms.adapter.MainFragmentAdapter
 import com.example.myfilms.databinding.MainFragmentBinding
@@ -99,7 +100,7 @@ class MainFragment : Fragment() {
             is AppState.Success -> {
                 waitForIt.visibility = View.GONE
                 adapter.setListOfMovies(appState.moviesData)
-                Snackbar.make(recyclerView, getString(R.string.sucess), Snackbar.LENGTH_LONG).show()
+                Snackbar.make(recyclerView, BuildConfig.BUILD_TYPE, Snackbar.LENGTH_LONG).show()//был success
             }
             is AppState.Loading -> {
                 waitForIt.visibility = View.VISIBLE
